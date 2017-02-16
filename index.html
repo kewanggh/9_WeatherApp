@@ -41,6 +41,10 @@
       <div class="panel panel-info">
         <div class="panel-heading">
           <h3 class="panel-title">City Information</h3>
+          <div class="btn-group" role="group" aria-label="...">
+            <button type="button" class="btn btn-default" ng-click="degree=1">&#8451</button>
+            <button type="button" class="btn btn-default" ng-click="degree=2">&#8457</button>
+          </div>
         </div>
         <div class="panel-body">
           <div class="col-lg-12 well well-lg smallBox">
@@ -50,12 +54,34 @@
           </div>
           <hr>
           <div class="smallBox">
-            <div class="col-lg-4 well"><h5>Temperature (F)<br><br>{{vm.cityWeather.main.temp}}&#8457</h5></div>
-            <div class="col-lg-4 well"><h5>Pressure<br><br>{{vm.cityWeather.main.pressure | number: 0}}</h5></div>
-            <div class="col-lg-4 well"><h5>Humidity <br><br>{{vm.cityWeather.main.humidity}}%</h5></div>
-            <div class="col-lg-4 well"><h5>Lowest Temp (F) <br><br>{{vm.cityWeather.main.temp_min}}&#8457</h5></div>
-            <div class="col-lg-4 well"><h5>Highest Temp (F) <br><br>{{vm.cityWeather.main.temp_max}}&#8457</h5></div>
-            <div class="col-lg-4 well"><h5>Wind Speed <br><br>{{vm.cityWeather.wind.speed}}mph</h5></div>
+            <div class="col-lg-4 well">
+              <h5>Temperature (F)<br><br>{{degree === 1 ? vm.convert(vm.cityWeather.main.temp) :  vm.cityWeather.main.temp}}{{degree === 1 ?  '&#8451': '&#8457' }}</h5>
+
+            </div>
+
+            <div class="col-lg-4 well">
+              <h5>Pressure<br><br>{{vm.cityWeather.main.pressure | number: 0}}</h5>
+
+            </div>
+
+            <div class="col-lg-4 well">
+              <h5>Humidity <br><br>{{vm.cityWeather.main.humidity}}%</h5>
+            </div>
+
+            <div class="col-lg-4 well">
+              <h5>Lowest Temp (F) <br><br>{{degree === 1 ? vm.convert(vm.cityWeather.main.temp_min) :  vm.cityWeather.main.temp_min}}{{degree === 1 ?  '&#8451': '&#8457' }}</h5>
+
+            </div>
+
+            <div class="col-lg-4 well">
+              <h5>Highest Temp (F) <br><br>{{degree === 1 ? vm.convert(vm.cityWeather.main.temp_max) :  vm.cityWeather.main.temp_max}}{{degree === 1 ?  '&#8451': '&#8457' }}</h5>
+
+            </div>
+
+            <div class="col-lg-4 well">
+              <h5>Wind Speed <br><br>{{vm.cityWeather.wind.speed}}mph</h5>
+            </div>
+
           </div>
         </div>
       </div>

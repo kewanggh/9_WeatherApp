@@ -21,7 +21,7 @@
           $http({
             method: 'GET',
             url: ('http://api.openweathermap.org/data/2.5/weather?q=' + city + '&units=imperial&APPID=8d341ab1bde4d1589b7108af6c9267fd')
-          
+
           }).then(function(response) {
             if (typeof response.data === 'object') {
               defer.resolve(response);
