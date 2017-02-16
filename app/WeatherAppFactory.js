@@ -15,12 +15,13 @@
 
         return service;
 
-        function getWeather() {
+        function getWeather(city) {
           var defer = $q.defer();
 
           $http({
             method: 'GET',
-            url: ''
+            url: ('http://api.openweathermap.org/data/2.5/weather?q=' + city + '&units=imperial&APPID=8d341ab1bde4d1589b7108af6c9267fd')
+
           }).then(function(response) {
             if (typeof response.data === 'object') {
               defer.resolve(response);

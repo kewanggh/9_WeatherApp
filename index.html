@@ -4,6 +4,8 @@
   <meta charset="UTF-8">
   <title>Gulp Demo</title>
 <!-- bower:css -->
+<link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.css" />
+<link rel="stylesheet" href="bower_components/angular-toastr/dist/angular-toastr.css" />
 <!-- endbower -->
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
 
@@ -12,14 +14,109 @@
 <!-- endinject -->
 </head>
 
-<body ng-controller="WeatherAppController as vm">
+<body ng-controller="WeatherAppController as vm" ng-cloak ng-init="vm.search(vm.defaultCity)">
+  <div class="container">
+    <div class="jumbotron">
+      <h1>Origin Weather Application</h1>
+      <p>Always know if you'll need an umbrella!</p>
+    </div>
+
+    <div class="btn-group" role="group" aria-label="..." ng-repeat="city in vm.cities">
+      <button type="button" class="btn btn-primary" ng-click="vm.search(city.name)">{{city.name}}</button>
+
+    </div>
+
+  <div class="row">
+    <div class="col-lg-12">
+      <div class="input-group">
+        <input type="text" class="form-control" placeholder="Search for..." ng-model="vm.city">
+        <span class="input-group-btn">
+          <button class="btn btn-default" type="button" ng-click="vm.search(vm.city)">Go!</button>
+        </span>
+      </div><!-- /input-group -->
+    </div><!-- /.col-lg-6 -->
+  </div><!-- /.row -->
+<br>
+  <div class="col-lg-6">
+      <div class="panel panel-info">
+        <div class="panel-heading">
+          <h3 class="panel-title">City Information</h3>
+          <div class="btn-group" role="group" aria-label="...">
+            <button type="button" class="btn btn-default" ng-click="degree=1">&#8451</button>
+            <button type="button" class="btn btn-default" ng-click="degree=2">&#8457</button>
+          </div>
+        </div>
+        <div class="panel-body">
+          <div class="col-lg-12 well well-lg smallBox">
+
+            <h3><img src="app/style/d03.svg" alt="" class="icon">{{vm.cityWeather.name}}</h3>
+            <small>Lat/Long: {{vm.cityWeather.coord.lat}},{{vm.cityWeather.coord.lon}}</small>
+          </div>
+          <hr>
+          <div class="smallBox">
+            <div class="col-lg-4 well">
+              <h5>Temperature<br><br>{{degree === 1 ? vm.convert(vm.cityWeather.main.temp) :  vm.cityWeather.main.temp}}{{degree === 1 ?  '&#8451': '&#8457' }}</h5>
+
+            </div>
+
+            <div class="col-lg-4 well">
+              <h5>Pressure<br><br>{{vm.cityWeather.main.pressure | number: 0}}</h5>
+
+            </div>
+
+            <div class="col-lg-4 well">
+              <h5>Humidity <br><br>{{vm.cityWeather.main.humidity}}%</h5>
+            </div>
+
+            <div class="col-lg-4 well">
+              <h5>Lowest Temp <br><br>{{degree === 1 ? vm.convert(vm.cityWeather.main.temp_min) :  vm.cityWeather.main.temp_min}}{{degree === 1 ?  '&#8451': '&#8457' }}</h5>
+
+            </div>
+
+            <div class="col-lg-4 well">
+              <h5>Highest Temp <br><br>{{degree === 1 ? vm.convert(vm.cityWeather.main.temp_max) :  vm.cityWeather.main.temp_max}}{{degree === 1 ?  '&#8451': '&#8457' }}</h5>
+
+            </div>
+
+            <div class="col-lg-4 well">
+              <h5>Wind Speed <br><br>{{vm.cityWeather.wind.speed}}mph</h5>
+            </div>
+
+          </div>
+        </div>
+      </div>
+  </div>
+
+
+    <div class="col-lg-6">
+      <div class="panel panel-info">
+        <div class="panel-heading">
+          <h3 class="panel-title">Search History</h3>
+        </div>
+      <div class="panel-body">
+        <table class="table table-striped" >
+        <tbody>
+        	<tr ng-repeat="city in vm.cities">
+			      <td>{{city.name}}</td>
+			      <td>{{city.time | date: 'medium'}}</td>
+        	</tr>
+        </tbody>
+      </table>
+        </div>
+      </div>
+    </div>
+
+
+  </div>
+
 
 
 <!-- bower:js -->
 <script src="bower_components/angular/angular.js"></script>
 <script src="bower_components/jquery/dist/jquery.js"></script>
+<script src="bower_components/angular-toastr/dist/angular-toastr.tpls.js"></script>
 <!-- endbower -->
-<h1>HEYA</h1>
+
 <!-- inject:js -->
 <script src="/app/app.js"></script>
 <script src="/app/WeatherAppController.js"></script>
